@@ -19,7 +19,9 @@ public class NewsRecord {
     private int month;
     @CsvBindByName
     private String content;
+    public NewsRecord() {
 
+    }
     public NewsRecord(NewsRecordRaw rawRecord) {
         id = rawRecord.getId();
         title = rawRecord.getTitle();
