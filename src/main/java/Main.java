@@ -1,11 +1,3 @@
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Iterator;
-
 /**
  * Created by Xiangxi on 2018/6/8.
  * Contact him on xiangxi.zhang.cs@gmail.com
@@ -16,7 +8,7 @@ public class Main {
         String outputPath = "../cleanedArticles";
         String[] inputPaths = new String[]{"../articles1.csv", "../articles2.csv", "../articles3.csv"};
 
-        RawRecordsTransformer rawRecordsTransformer = new RawRecordsTransformer(outputPath, inputPaths, false);
+        RawRecordTransformer rawRecordTransformer = new RawRecordTransformer(outputPath, inputPaths, false);
         /*
         try {
             Reader reader = Files.newBufferedReader(Paths.get("../articles3.csv"));

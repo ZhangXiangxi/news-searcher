@@ -3,12 +3,12 @@
  * Contact him on xiangxi.zhang.cs@gmail.com
  */
 // This class will transform the raw data into a more organised form
-public class RawRecordsTransformer {
+public class RawRecordTransformer {
     public String outputFile;
     public String[] inputFiles;
     public boolean useUrlData;
 
-    public RawRecordsTransformer(String outputFile, String[] inputFiles, boolean useUrlData) {
+    public RawRecordTransformer(String outputFile, String[] inputFiles, boolean useUrlData) {
         this.outputFile = outputFile;
         this.inputFiles = inputFiles;
         this.useUrlData = useUrlData;
