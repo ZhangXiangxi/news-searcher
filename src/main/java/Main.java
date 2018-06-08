@@ -13,19 +13,28 @@ import java.util.Iterator;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Main!");
+        String outputPath = "../cleanedArticles";
+        String[] inputPaths = new String[]{"../articles1.csv", "../articles2.csv", "../articles3.csv"};
+
+        RawRecordsTransformer rawRecordsTransformer = new RawRecordsTransformer(outputPath, inputPaths, false);
+        /*
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("articles1.csv"));
+            Reader reader = Files.newBufferedReader(Paths.get("../articles3.csv"));
             CsvToBean<NewsRecordRaw> csvToBean = new CsvToBeanBuilder<NewsRecordRaw>(reader).withType(NewsRecordRaw.class).build();
             Iterator<NewsRecordRaw> newsRecordIterator = csvToBean.iterator();
             int count = 0;
+            int sum = 0;
             while(newsRecordIterator.hasNext()) {
-                if (count++>5)
+                if (count > 5)
                     break;
                 NewsRecordRaw record = newsRecordIterator.next();
-                System.out.println(record.getTitle());
+                if (!record.getUrl().equals("")) {
+                    System.out.println(record.getUrl());
+                    count++;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
