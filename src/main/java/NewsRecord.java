@@ -25,9 +25,16 @@ public class NewsRecord {
         title = rawRecord.getTitle();
         publication = rawRecord.getPublication();
         author = rawRecord.getAuthor();
-        year = (int) Float.parseFloat(rawRecord.getYear());
-        month = (int) Float.parseFloat(rawRecord.getMonth());
+        year = floatStringToInt(rawRecord.getYear());
+        month = floatStringToInt(rawRecord.getMonth());
         content = rawRecord.getContent();
+    }
+
+    private static int floatStringToInt(String s) {
+        if (s.length() == 0)
+            return 0;
+        else
+            return (int) Float.parseFloat(s);
     }
 
     public int getId() {
