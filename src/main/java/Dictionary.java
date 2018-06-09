@@ -29,7 +29,7 @@ public class Dictionary {
             "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "we", "we'd",
             "we'll", "we're", "we've", "were", "what", "what's", "when", "when's", "where", "where's", "which", "while",
             "who", "who's", "whom", "why", "why's", "with", "would", "you", "you'd", "you'll", "you're", "you've",
-            "your", "yours", "yourself", "yourselves"};
+            "your", "yours", "yourself", "yourselves", "t"};
     boolean isReady = false;
     public Dictionary() {
         dictionary = new ArrayList<>();
@@ -55,12 +55,14 @@ public class Dictionary {
     }
     public void saveDictionary() {
         assert(isReady);
-        int count = 0;
+        int count = 1;
         for(var entry : dictionary)
             wordDAO.insertWord(count++, entry.word);
     }
     public void addContent(String content) {
         for(var word : cleanContent(content)) {
+            if (stopWordSet.contains(word))
+                continue;
             if (!wordCount.containsKey(word))
                 wordCount.put(word, 1);
             else {

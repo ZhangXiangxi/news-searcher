@@ -1,3 +1,5 @@
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +21,8 @@ public class WordDAO {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(insertSqlBuilder(word, id));
             preparedStatement.executeUpdate();
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            System.out.println(id + " " + word);
         } catch (SQLException e) {
             e.printStackTrace();
         }
