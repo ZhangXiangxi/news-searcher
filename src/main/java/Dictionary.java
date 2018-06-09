@@ -16,6 +16,7 @@ public class Dictionary {
     public ArrayList<WordEntry> dictionary;
     public Trie<String, Integer> wordCount;
     public WordDAO wordDAO;
+    public TreeSet<String> stopWordSet;
     public static final String[] STOP_WORDS = { "a", "about", "above", "after", "again", "against", "all", "am", "an",
             "and", "any", "are", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both",
             "but", "by", "could", "did", "do", "does", "doing", "down", "during", "each", "few", "for", "from",
@@ -28,13 +29,22 @@ public class Dictionary {
             "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "we", "we'd",
             "we'll", "we're", "we've", "were", "what", "what's", "when", "when's", "where", "where's", "which", "while",
             "who", "who's", "whom", "why", "why's", "with", "would", "you", "you'd", "you'll", "you're", "you've",
-            "your", "yours", "yourself", "yourselves", "s", "t", "ll", "ve", "m", "d", "re"};
+            "your", "yours", "yourself", "yourselves"};
     boolean isReady = false;
     public Dictionary() {
         dictionary = new ArrayList<>();
         wordCount = new PatriciaTrie<Integer>();
         wordDAO = new WordDAO();
+        stopWordSet = new TreeSet<>();
+        makeUpStopWordSet();
     }
+
+    private void makeUpStopWordSet() {
+        for (var stopWord : STOP_WORDS) {
+            stopWordSet.addAll(Arrays.asList(stopWord.split("'")));
+        }
+    }
+
     public void makeDictionary() {
         for(var pair : wordCount.entrySet()) {
             WordEntry entry = new WordEntry(pair.getKey(), pair.getValue());

@@ -31,4 +31,12 @@ public class DictionaryTest {
                 break;
         }
     }
+
+    @Test
+    public void testStopWordSet() {
+        Dictionary dictionary = new Dictionary();
+        for(var word : dictionary.stopWordSet) {
+            System.out.println(word);
+        }
+    }
 }
