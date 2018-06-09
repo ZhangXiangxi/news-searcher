@@ -44,7 +44,8 @@ public class RawRecordTransformer {
             Reader reader = Files.newBufferedReader(Paths.get(inputPath));
             var csvToBean = new CsvToBeanBuilder<NewsRecordRaw>(reader).withType(NewsRecordRaw.class).build();
             for (var rawRecord : csvToBean) {
-                if (rawRecord.getContent().length() != 0) {
+                int contentLength = rawRecord.getContent().length();
+                if (contentLength >= 50 && contentLength < 100000) {
                     var record = new NewsRecord(rawRecord);
                     beanToCsv.write(record);
                 }
