@@ -27,6 +27,6 @@ public class NewsTable {
         }
     }
     public void writeNews(NewsRecord record) {
-        newsDAO.writeRecord(record);
+        newsDAO.insertRecord(record);
     }
 }

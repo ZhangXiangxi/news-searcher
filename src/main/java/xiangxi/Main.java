@@ -5,6 +5,7 @@ import xiangxi.recordClean.RawRecordTransformer;
 import xiangxi.wordTable.WordTable;
 
 import java.io.File;
+import java.io.RandomAccessFile;
 
 
 /**
