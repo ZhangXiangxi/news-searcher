@@ -1,6 +1,10 @@
+import com.opencsv.bean.CsvToBeanBuilder;
+
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
@@ -15,6 +19,18 @@ public class Dictionary {
     }
     public void addContent(String content) {
         dictionary.addAll(cleanContent(content));
+    }
+    public void addContentFromNews(String path) {
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+            var csvToBean = new CsvToBeanBuilder<NewsRecord>(reader).withType(NewsRecord.class).build();
+            for (var record : csvToBean) {
+                addContent(record.getTitle());
+                addContent(record.getContent());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private ArrayList<String> cleanContent(String content) {
         var result = new ArrayList<String>();

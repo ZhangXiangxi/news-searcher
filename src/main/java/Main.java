@@ -20,5 +20,8 @@ public class Main {
             String[] inputPaths = new String[]{"../articles1.csv", "../articles2.csv", "../articles3.csv"};
             RawRecordTransformer rawRecordTransformer = new RawRecordTransformer(outputPath, inputPaths, false);
         }
+        Dictionary dictionary = new Dictionary();
+        dictionary.addContentFromNews("../cleanedArticles.csv");
+        System.out.println(dictionary.dictionary.size());
     }
 }
