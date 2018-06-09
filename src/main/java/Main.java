@@ -22,6 +22,7 @@ public class Main {
         }
         Dictionary dictionary = new Dictionary();
         dictionary.addContentFromNews("../cleanedArticles.csv");
-        System.out.println(dictionary.dictionary.size());
+        dictionary.makeDictionary();
+        assert (dictionary.isReady);
     }
 }

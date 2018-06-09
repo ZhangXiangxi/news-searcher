@@ -50,4 +50,24 @@ public class MainTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void testMaxContentAndTitleSize() {
+        int titleMax = 0;
+        int contentMax = 0;
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get("../cleanedArticles.csv"));
+            var csvToBean = new CsvToBeanBuilder<NewsRecord>(reader).withType(NewsRecord.class).build();
+
+            for (NewsRecord record : csvToBean) {
+                int titleSize = record.getTitle().length();
+                int contentSize = record.getContent().length();
+                titleMax = titleSize > titleMax ? titleSize : titleMax;
+                contentMax = contentSize > contentMax ? contentSize : contentMax;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(titleMax);
+        System.out.println(contentMax);
+    }
 }

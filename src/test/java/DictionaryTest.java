@@ -8,13 +8,27 @@ import static org.junit.Assert.*;
  */
 public class DictionaryTest {
     @Test
-    public void testAddingContent() {
+    public void testSort() {
         Dictionary dictionary = new Dictionary();
-        dictionary.addContent("This is an content example. The example is \"kind\" of strange...");
-        assertTrue(dictionary.dictionary.contains("kind"));
-        assertTrue(dictionary.dictionary.contains("example"));
-        assertTrue(dictionary.dictionary.contains("this"));
-        assertFalse(dictionary.dictionary.contains("This"));
+        dictionary.addContent("This is a test content.The content is meant to be a test of a class.");
+        dictionary.makeDictionary();
+        assertTrue(dictionary.isReady);
+        for (var entry : dictionary.dictionary) {
+            System.out.println(entry.frequency + " " + entry.word);
+        }
     }
 
+    @Test
+    public void testWithRealData() {
+        Dictionary dictionary = new Dictionary();
+        dictionary.addContentFromNews("../cleanedArticles.csv");
+        dictionary.makeDictionary();
+        assertTrue(dictionary.isReady);
+        int count = 0;
+        for (var entry : dictionary.dictionary) {
+            System.out.println(entry.frequency + " " + entry.word);
+            if (count++ > 10)
+                break;
+        }
+    }
 }

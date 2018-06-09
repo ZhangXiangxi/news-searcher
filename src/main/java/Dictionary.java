@@ -1,11 +1,11 @@
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.apache.commons.collections4.Trie;
+import org.apache.commons.collections4.trie.PatriciaTrie;
 
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Created by Xiangxi on 2018/6/9.
@@ -13,12 +13,30 @@ import java.util.TreeSet;
  */
 // This class is an dictionary for words for files
 public class Dictionary {
-    public Set<String> dictionary;
+    public ArrayList<WordEntry> dictionary;
+    public Trie<String, Integer> wordCount;
+    boolean isReady = false;
     public Dictionary() {
-        dictionary = new TreeSet<>();
+        dictionary = new ArrayList<>();
+        wordCount = new PatriciaTrie<Integer>();
+    }
+    public void makeDictionary() {
+        for(var pair : wordCount.entrySet()) {
+            WordEntry entry = new WordEntry(pair.getKey(), pair.getValue());
+            dictionary.add(entry);
+        }
+        Collections.sort(dictionary);
+        isReady = true;
     }
     public void addContent(String content) {
-        dictionary.addAll(cleanContent(content));
+        for(var word : cleanContent(content)) {
+            if (!wordCount.containsKey(word))
+                wordCount.put(word, 1);
+            else {
+                int frequency = wordCount.get(word);
+                wordCount.put(word, frequency+1);
+            }
+        }
     }
     public void addContentFromNews(String path) {
         try {
@@ -55,5 +73,42 @@ public class Dictionary {
             }
         }
         return result;
+    }
+
+    public class WordEntry implements Comparable{
+        public String word;
+        public int frequency;
+
+        public WordEntry(String word, int frequency) {
+            this.word = word;
+            this.frequency = frequency;
+        }
+
+        public String getWord() {
+            return word;
+        }
+
+        public void setWord(String word) {
+            this.word = word;
+        }
+
+        public int getFrequency() {
+            return frequency;
+        }
+
+        public void setFrequency(int frequency) {
+            this.frequency = frequency;
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            if (!o.getClass().equals(WordEntry.class))
+                return 1;
+            assert(o.getClass().equals(WordEntry.class));
+            WordEntry another = (WordEntry)o;
+            if (another.frequency != frequency)
+                return another.frequency-frequency;
+            return word.compareTo(another.word);
+        }
     }
 }
