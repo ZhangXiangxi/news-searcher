@@ -14,15 +14,19 @@ import java.util.Iterator;
  */
 public class Main {
     public static void main(String[] args) {
+        boolean hasDictionary = true;
         System.out.println("Main!");
         if (!new File("../cleanedArticles.csv").exists()) {
             String outputPath = "../cleanedArticles.csv";
             String[] inputPaths = new String[]{"../articles1.csv", "../articles2.csv", "../articles3.csv"};
             RawRecordTransformer rawRecordTransformer = new RawRecordTransformer(outputPath, inputPaths, false);
         }
-        Dictionary dictionary = new Dictionary();
-        dictionary.addContentFromNews("../cleanedArticles.csv");
-        dictionary.makeDictionary();
-        assert (dictionary.isReady);
+        if (!hasDictionary) {
+            Dictionary dictionary = new Dictionary();
+            dictionary.addContentFromNews("../cleanedArticles.csv");
+            dictionary.makeDictionary();
+            assert (dictionary.isReady);
+            dictionary.saveDictionary();
+        }
     }
 }

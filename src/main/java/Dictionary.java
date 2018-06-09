@@ -15,10 +15,12 @@ import java.util.*;
 public class Dictionary {
     public ArrayList<WordEntry> dictionary;
     public Trie<String, Integer> wordCount;
+    public WordDAO wordDAO;
     boolean isReady = false;
     public Dictionary() {
         dictionary = new ArrayList<>();
         wordCount = new PatriciaTrie<Integer>();
+        wordDAO = new WordDAO();
     }
     public void makeDictionary() {
         for(var pair : wordCount.entrySet()) {
@@ -27,6 +29,12 @@ public class Dictionary {
         }
         Collections.sort(dictionary);
         isReady = true;
+    }
+    public void saveDictionary() {
+        assert(isReady);
+        int count = 0;
+        for(var entry : dictionary)
+            wordDAO.insertWord(count++, entry.word);
     }
     public void addContent(String content) {
         for(var word : cleanContent(content)) {
