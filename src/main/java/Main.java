@@ -5,6 +5,7 @@ import java.io.RandomAccessFile;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -18,22 +19,6 @@ public class Main {
             String outputPath = "../cleanedArticles.csv";
             String[] inputPaths = new String[]{"../articles1.csv", "../articles2.csv", "../articles3.csv"};
             RawRecordTransformer rawRecordTransformer = new RawRecordTransformer(outputPath, inputPaths, false);
-        }
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get("../cleanedArticles.csv"));
-            var csvToBean = new CsvToBeanBuilder<NewsRecord>(reader).withType(NewsRecord.class).build();
-            int count = 0;
-            for (NewsRecord aCsvToBean : csvToBean) {
-                var record = aCsvToBean;
-                if (count > 50)
-                    break;
-                if (record.getContent().length() == 0)
-                    count++;
-            }
-            System.out.println(count);
-        } catch (Exception e) {
-
-            e.printStackTrace();
         }
     }
 }
