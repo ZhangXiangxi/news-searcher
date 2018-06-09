@@ -1,12 +1,12 @@
 import com.opencsv.bean.CsvToBeanBuilder;
 import it.unimi.dsi.fastutil.ints.IntAVLTreeSet;
 import org.junit.Test;
+import xiangxi.newsTable.NewsRecord;
 
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static org.junit.Assert.*;
 

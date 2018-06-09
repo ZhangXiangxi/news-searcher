@@ -1,12 +1,10 @@
-import com.opencsv.bean.CsvToBeanBuilder;
+package xiangxi;
+
+import xiangxi.recordClean.RawRecordTransformer;
+import xiangxi.wordTable.Dictionary;
 
 import java.io.File;
-import java.io.RandomAccessFile;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Iterator;
+
 
 /**
  * Created by Xiangxi on 2018/6/8.
@@ -15,7 +13,7 @@ import java.util.Iterator;
 public class Main {
     public static void main(String[] args) {
         boolean hasDictionary = true;
-        System.out.println("Main!");
+        System.out.println("xiangxi.Main!");
         if (!new File("../cleanedArticles.csv").exists()) {
             String outputPath = "../cleanedArticles.csv";
             String[] inputPaths = new String[]{"../articles1.csv", "../articles2.csv", "../articles3.csv"};

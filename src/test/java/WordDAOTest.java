@@ -1,7 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import xiangxi.wordTable.WordDAO;
 
 /**
  * Created by Xiangxi on 2018/6/9.

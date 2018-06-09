@@ -1,4 +1,7 @@
+package xiangxi.wordTable;
+
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import xiangxi.DBPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

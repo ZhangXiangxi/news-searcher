@@ -1,4 +1,7 @@
+package xiangxi.newsTable;
+
 import com.opencsv.bean.CsvBindByName;
+import xiangxi.recordClean.NewsRecordRaw;
 
 /**
  * Created by Xiangxi on 2018/6/8.

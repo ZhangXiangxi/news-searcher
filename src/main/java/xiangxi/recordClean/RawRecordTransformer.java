@@ -1,6 +1,9 @@
+package xiangxi.recordClean;
+
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import xiangxi.newsTable.NewsRecord;
 
 import java.io.IOException;
 import java.io.Reader;

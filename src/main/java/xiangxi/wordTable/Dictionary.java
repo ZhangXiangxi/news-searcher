@@ -1,6 +1,9 @@
+package xiangxi.wordTable;
+
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
+import xiangxi.newsTable.NewsRecord;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -30,7 +33,7 @@ public class Dictionary {
             "we'll", "we're", "we've", "were", "what", "what's", "when", "when's", "where", "where's", "which", "while",
             "who", "who's", "whom", "why", "why's", "with", "would", "you", "you'd", "you'll", "you're", "you've",
             "your", "yours", "yourself", "yourselves", "t"};
-    boolean isReady = false;
+    public boolean isReady = false;
     public Dictionary() {
         dictionary = new ArrayList<>();
         wordCount = new PatriciaTrie<Integer>();

@@ -1,23 +1,30 @@
+package xiangxi.recordClean;
+
+import com.opencsv.bean.CsvBindByName;
+
 /**
- * Created by Xiangxi on 2018/6/9.
+ * Created by Xiangxi on 2018/6/8.
  * Contact him on xiangxi.zhang.cs@gmail.com
  */
-public class NewsMetadata {
+public class NewsRecordRaw {
+    @CsvBindByName
     private int id;
+    @CsvBindByName
     private String title;
+    @CsvBindByName
     private String publication;
+    @CsvBindByName
     private String author;
-    private int year;
-    private int month;
-    public NewsMetadata() {}
-    public NewsMetadata(NewsRecord record) {
-        id = record.getId();
-        title = record.getTitle();
-        publication = record.getPublication();
-        author = record.getAuthor();
-        year = record.getYear();
-        month = record.getMonth();
-    }
+    @CsvBindByName
+    private String year;
+    @CsvBindByName
+    private String month;
+    @CsvBindByName
+    private String url;
+    @CsvBindByName
+    private String content;
+
+    public NewsRecordRaw(){}
 
     public int getId() {
         return id;
@@ -51,19 +58,35 @@ public class NewsMetadata {
         this.author = author;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

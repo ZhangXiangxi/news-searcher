@@ -1,4 +1,5 @@
 import org.junit.Test;
+import xiangxi.wordTable.Dictionary;
 
 import static org.junit.Assert.*;
 
