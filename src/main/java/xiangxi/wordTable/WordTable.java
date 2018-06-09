@@ -66,6 +66,8 @@ public class WordTable {
         for(var word : cleanContent(content)) {
             if (stopWordSet.contains(word))
                 continue;
+            if (word.length()>50)
+                word = word.substring(0, 50);
             if (!wordCount.containsKey(word))
                 wordCount.put(word, 1);
             else {
