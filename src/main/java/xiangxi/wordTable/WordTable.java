@@ -15,7 +15,7 @@ import java.util.*;
  * Contact him on xiangxi.zhang.cs@gmail.com
  */
 // This class is an dictionary for words for files
-public class Dictionary {
+public class WordTable {
     public ArrayList<WordEntry> dictionary;
     public Trie<String, Integer> wordCount;
     public WordDAO wordDAO;
@@ -34,7 +34,7 @@ public class Dictionary {
             "who", "who's", "whom", "why", "why's", "with", "would", "you", "you'd", "you'll", "you're", "you've",
             "your", "yours", "yourself", "yourselves", "t"};
     public boolean isReady = false;
-    public Dictionary() {
+    public WordTable() {
         dictionary = new ArrayList<>();
         wordCount = new PatriciaTrie<Integer>();
         wordDAO = new WordDAO();
