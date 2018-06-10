@@ -38,14 +38,15 @@ public class WordTable {
         dictionary = new ArrayList<>();
         wordCount = new PatriciaTrie<Integer>();
         wordDAO = new WordDAO();
-        stopWordSet = new TreeSet<>();
-        makeUpStopWordSet();
+        stopWordSet = makeUpStopWordSet();
     }
 
-    private void makeUpStopWordSet() {
+    public static TreeSet<String> makeUpStopWordSet() {
+        TreeSet<String> stopWordSet = new TreeSet<>();
         for (var stopWord : STOP_WORDS) {
             stopWordSet.addAll(Arrays.asList(stopWord.split("'")));
         }
+        return stopWordSet;
     }
 
     public void makeDictionary() {
@@ -88,7 +89,7 @@ public class WordTable {
             e.printStackTrace();
         }
     }
-    private ArrayList<String> cleanContent(String content) {
+    public static ArrayList<String> cleanContent(String content) {
         var result = new ArrayList<String>();
         boolean readState = false; // mark whether the automata is reading words or not.
         StringBuilder builder = new StringBuilder();
@@ -112,7 +113,7 @@ public class WordTable {
         }
         return result;
     }
-    private boolean isEnglishLetter(char c) {
+    private static boolean isEnglishLetter(char c) {
         return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
     }
 

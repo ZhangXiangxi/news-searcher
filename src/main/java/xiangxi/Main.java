@@ -1,5 +1,6 @@
 package xiangxi;
 
+import xiangxi.invertedIndex.InvertedIndexTable;
 import xiangxi.newsTable.NewsTable;
 import xiangxi.recordClean.RawRecordTransformer;
 import xiangxi.wordTable.WordTable;
@@ -35,6 +36,10 @@ public class Main {
         if (!hasNewsTable) {
             NewsTable newsTable = new NewsTable(NEWS_CONTENT_PATH);
             newsTable.writeNewsFromFile(CLEAN_ARTICLES_PATH);
+        }
+        if (!hasInvertedTable) {
+            InvertedIndexTable invertedIndexTable = new InvertedIndexTable();
+            invertedIndexTable.makeInvertedIndexTable(CLEAN_ARTICLES_PATH);
         }
     }
 }

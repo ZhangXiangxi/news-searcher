@@ -1,6 +1,8 @@
 package xiangxi.wordTable;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import org.apache.commons.collections4.Trie;
+import org.apache.commons.collections4.trie.PatriciaTrie;
 import xiangxi.DBPool;
 
 import java.sql.Connection;
@@ -46,16 +48,34 @@ public class WordDAO {
         return result;
     }
 
+    public Trie<String, Integer> getFirstWords(int count) {
+        Trie<String, Integer> result = new PatriciaTrie<>();
+        try {
+            String sql = "SELECT * FROM word_table WHERE word_id <= ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, count);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                result.put(resultSet.getString("word"), resultSet.getInt("word_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public int searchIDWithWord(String word) {
         // the word should be pure-alphabetic and in lower case
-        String sqlString = searchIDWithWordBuilder(word);
         int result = -1;
         try {
+            String sqlString = "SELECT * FROM new_schema.word_table WHERE word = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlString);
+            preparedStatement.setString(1, word);
             ResultSet resultSet = preparedStatement.executeQuery();
-            boolean hasNext = resultSet.next();
-            assert(hasNext);
-            result =  resultSet.getInt("word_id");
+            if (resultSet.next())
+                result =  resultSet.getInt("word_id");
+            else
+                System.out.println(word);
         } catch (SQLException e) {
             e.printStackTrace();
         }
