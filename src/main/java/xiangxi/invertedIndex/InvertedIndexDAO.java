@@ -1,6 +1,7 @@
 package xiangxi.invertedIndex;
 
 import com.mysql.jdbc.MysqlDataTruncation;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import xiangxi.DBPool;
 
 import java.sql.Connection;
@@ -8,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Xiangxi on 2018/6/10.
@@ -30,6 +33,25 @@ public class InvertedIndexDAO {
             preparedStatement.close();
         }
         catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void insert(IntArrayList wordList, IntArrayList freqList, int news_id, boolean isTitle) {
+        try {
+            var ps = connection.prepareStatement("INSERT INTO inverted_indexes VALUE (?,?,?,?)");
+            connection.setAutoCommit(false);
+            assert(wordList.size() == freqList.size());
+            for(int i = 0; i < wordList.size(); i++) {
+                ps.setInt(1, wordList.getInt(i));
+                ps.setInt(2, news_id);
+                ps.setInt(3, freqList.getInt(i));
+                ps.setBoolean(4, isTitle);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

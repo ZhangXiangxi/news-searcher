@@ -1,6 +1,7 @@
 package xiangxi.invertedIndex;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import org.apache.commons.collections4.Trie;
 import org.apache.commons.collections4.trie.PatriciaTrie;
 import xiangxi.newsTable.NewsRecord;
@@ -24,7 +25,7 @@ public class InvertedIndexTable {
     public InvertedIndexTable() {
         wordDAO = new WordDAO();
         invertedIndexDAO = new InvertedIndexDAO();
-        wordToID = wordDAO.getFirstWords(5000);
+        wordToID = wordDAO.getFirstWords(10000);
         stopWordSet = WordTable.makeUpStopWordSet();
     }
 
@@ -57,10 +58,13 @@ public class InvertedIndexTable {
                 wordFrequency.put(word, wordFrequency.get(word)+1);
             }
         }
+        IntArrayList wordIDList = new IntArrayList(wordFrequency.size());
+        IntArrayList freqList = new IntArrayList(wordFrequency.size());
         for(var entry : wordFrequency.entrySet()) {
-            InvertedIndexEntry invertedEntry = new InvertedIndexEntry(wordToWordID(entry.getKey()), news_id, entry.getValue(), isTitle);
-            invertedIndexDAO.insert(invertedEntry);
+            wordIDList.add(wordToWordID(entry.getKey()));
+            freqList.add(entry.getValue());
         }
+        invertedIndexDAO.insert(wordIDList, freqList, news_id, isTitle);
     }
     private int wordToWordID(String word) {
         if (wordToID.containsKey(word))
