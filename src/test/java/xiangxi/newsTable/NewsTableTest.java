@@ -45,4 +45,9 @@ public class NewsTableTest {
                 break;
         }
     }
+    @Test
+    public void testReadFile() {
+        NewsTable newsTable = new NewsTable(Main.NEWS_CONTENT_PATH);
+        System.out.println(newsTable.readFileBetweenPosition(638394079, 638394080));
+    }
 }

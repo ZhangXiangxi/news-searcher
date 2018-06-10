@@ -12,19 +12,31 @@ import java.nio.file.Paths;
  */
 public class NewsTable {
     private FileOutputStream outputStream;
+    private RandomAccessFile contentFile = null;
     private boolean writeToFile;
     private NewsDAO newsDAO;
     long beginCount = 0;
     public NewsTable(String outputPath) {
         writeToFile = !new File(outputPath).exists();
         newsDAO = new NewsDAO();
-        if (!writeToFile)
-            return;
         try {
-            outputStream = new FileOutputStream(new File(outputPath), true);
+            if (!writeToFile)
+                contentFile = new RandomAccessFile(outputPath, "r");
+            else
+                outputStream = new FileOutputStream(new File(outputPath), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public String readFileBetweenPosition(long beginPosition, long endPosition) {
+        assert(contentFile != null);
+        try {
+            contentFile.seek(beginPosition);
+            return contentFile.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
     public void writeNewsFromFile(String path) {
         try {
@@ -37,19 +49,21 @@ public class NewsTable {
                 if (count % 200 == 0)
                     System.out.println(count);
             }
+            if (outputStream != null)
+                outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void writeNews(NewsRecord record) {
-        String cleanContent = record.getContent().replace("\n", " ") + "\n";
+        byte[] cleanContent = (record.getContent().replace("\n", " ") + "\n").getBytes();
         try {
             if (writeToFile)
-                outputStream.write(cleanContent.getBytes());
+                outputStream.write(cleanContent);
             else {
                 NewsMetadata newsMetadata = new NewsMetadata(record.getId(), record.getTitle(), record.getPublication(),
-                        record.getAuthor(), record.getYear(), record.getMonth(), beginCount, beginCount+cleanContent.length());
-                beginCount += cleanContent.length();
+                        record.getAuthor(), record.getYear(), record.getMonth(), beginCount, beginCount+cleanContent.length);
+                beginCount += cleanContent.length;
                 newsDAO.insertRecord(newsMetadata);
             }
         } catch (IOException e) {
