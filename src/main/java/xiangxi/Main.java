@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         boolean hasDictionary = true;
         boolean hasNewsTable = true;
-        boolean hasInvertedTable = false;
+        boolean hasInvertedTable = true;
         System.out.println("Main!");
         if (!new File(CLEAN_ARTICLES_PATH).exists()) {
             String outputPath = CLEAN_ARTICLES_PATH;
