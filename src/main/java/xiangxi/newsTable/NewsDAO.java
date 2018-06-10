@@ -6,6 +6,7 @@ import xiangxi.DBPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -41,5 +42,23 @@ public class NewsDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public NewsMetadata searchMetaByID(int id) {
+        try {
+            String sql = "SELECT * FROM news_table WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next())
+                return null;
+            return new NewsMetadata(id, resultSet.getString("title"),
+                    resultSet.getString("publication"), resultSet.getString("author"),
+                    resultSet.getInt("year"), resultSet.getInt("month"),
+                    resultSet.getLong("startContentPosition"),
+                    resultSet.getLong("endContentPosition"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
