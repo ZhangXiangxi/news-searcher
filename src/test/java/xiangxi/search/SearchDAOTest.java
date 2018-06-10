@@ -13,9 +13,10 @@ import static org.junit.Assert.*;
 public class SearchDAOTest {
     @Test
     public void test() {
-        SearchDAO searchDAO = new SearchDAO(2.0);
+        SearchDAO searchDAO = new SearchDAO(3.0);
         ArrayList<String> words = new ArrayList<>();
-        words.add("harbin");
+        for (var slice : "who is the most powerful people in silicon valley".split(" "))
+            words.add(slice);
         searchDAO.searchForWords(words);
     }
 }
