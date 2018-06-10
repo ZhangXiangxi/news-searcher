@@ -29,8 +29,8 @@ public class NewsDAO {
             preparedStatement.setString(4, metadata.getAuthor());
             preparedStatement.setInt(5, metadata.getYear());
             preparedStatement.setInt(6, metadata.getMonth());
-            preparedStatement.setInt(7, metadata.getStartContentPosition());
-            preparedStatement.setInt(8, metadata.getEndContentPosition());
+            preparedStatement.setLong(7, metadata.getStartContentPosition());
+            preparedStatement.setLong(8, metadata.getEndContentPosition());
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
