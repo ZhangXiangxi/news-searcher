@@ -17,7 +17,8 @@ public class Main {
     public static final String NEWS_CONTENT_PATH = "../newsContent.dat";
     public static void main(String[] args) {
         boolean hasDictionary = true;
-        boolean hasNewsTable = false;
+        boolean hasNewsTable = true;
+        boolean hasInvertedTable = false;
         System.out.println("Main!");
         if (!new File(CLEAN_ARTICLES_PATH).exists()) {
             String outputPath = CLEAN_ARTICLES_PATH;
