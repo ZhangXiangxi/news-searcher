@@ -14,6 +14,7 @@ import java.io.RandomAccessFile;
  */
 public class Main {
     public static final String CLEAN_ARTICLES_PATH = "../cleanedArticles.csv";
+    public static final String NEWS_CONTENT_PATH = "../newsContent.dat";
     public static void main(String[] args) {
         boolean hasDictionary = true;
         boolean hasNewsTable = false;
@@ -31,7 +32,7 @@ public class Main {
             wordTable.saveDictionary();
         }
         if (!hasNewsTable) {
-            NewsTable newsTable = new NewsTable();
+            NewsTable newsTable = new NewsTable(NEWS_CONTENT_PATH);
             newsTable.writeNewsFromFile(CLEAN_ARTICLES_PATH);
         }
     }

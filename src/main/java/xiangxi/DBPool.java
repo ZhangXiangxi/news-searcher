@@ -11,7 +11,7 @@ public class DBPool {
     private Connection conn;
     public void createConn(){
         try{
-            String url="jdbc:mysql://localhost/new_schema?useUnicode=true&character_set_server=utf8mb4&charset&characterEncoding=utf8mb4";
+            String url="jdbc:mysql://localhost/new_schema";
             String user = "modugi";
             String password = "modugi";
             conn = DriverManager.getConnection(url, user, password);
